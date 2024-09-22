@@ -1,15 +1,21 @@
 <template>
-    <div class="w-full">
-        <div class="text-center col-span-9">
-            <p>BEST SELLERS</p>
-            <h1 class="font-bold text-8xl">BE THE BEST</h1>
-            <p>Your best deserves the best.</p>
+    <div class="grid grid-cols-11 my-10">
+        <div class="col-span-1 "></div>
+        <div class="col-span-9 flex flex-col">
+            <div class="text-center mb-5">
+                <p>BEST SELLERS</p>
+                <h1 class="font-bold text-8xl">BE THE BEST</h1>
+                <p>Your best deserves the best.</p>
+            </div>
+            <swiper :slidesPerView="'auto'" :spaceBetween="18" :freeMode="true" :pagination="{
+                clickable: true,
+            }" :modules="modules" >
+                <swiper-slide v-for="data in data">
+                    <NuxtImg :src="data.images[0]" alt="" class="" />
+                </swiper-slide>
+            </swiper>
         </div>
-        <swiper :slidesPerView="3" :spaceBetween="18" :freeMode="true" :pagination="{
-            clickable: true,
-        }" :modules="modules" class="w-full h-20">
-            <swiper-slide>Slide 1</swiper-slide>
-        </swiper>
+        <div class="col-span-1 "></div>
     </div>
 </template>
 
@@ -23,9 +29,18 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 const modules = [FreeMode, Pagination];
-
-
-
+const { data, status, error, refresh, clear } = await useFetch('https://api.escuelajs.co/api/v1/products?offset=4&limit=5');
 </script>
 
-<style scoped></style>
+<style scoped>
+.swiper-slide img {
+    display: block;
+    height: 512px;
+    width: auto;
+    object-fit: cover;
+}
+
+.swiper-slide {
+    width: auto;
+}
+</style>

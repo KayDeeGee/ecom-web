@@ -4,7 +4,7 @@
           <div class="logo">
               K
           </div>
-          <div class="flex gap-8 text-white font-medium text-xl">
+          <div class="flex gap-8  font-medium text-xl">
               <a href="#hero">
                   <h3>About Me</h3>
               </a>
