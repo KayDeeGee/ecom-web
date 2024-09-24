@@ -1,7 +1,5 @@
 <template>
-    <div class="grid grid-cols-11 my-10">
-        <div class="col-span-1 "></div>
-        <div class="col-span-9 flex flex-col">
+        <div class="col-span-10 flex flex-col col-start-2">
             <div class="text-center mb-5">
                 <p>BEST SELLERS</p>
                 <h1 class="font-bold text-8xl">BE THE BEST</h1>
@@ -15,8 +13,6 @@
                 </swiper-slide>
             </swiper>
         </div>
-        <div class="col-span-1 "></div>
-    </div>
 </template>
 
 <script setup>

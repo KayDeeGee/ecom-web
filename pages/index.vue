@@ -8,6 +8,8 @@ import Hero from '@/components/Home/Hero/index.vue'
 import BestSellers from '@/components/Home/BestSellers.vue'
 </script>
 
-<style scoped>
-
+<style>
+html {
+    @apply bg-slate-200
+}
 </style>
