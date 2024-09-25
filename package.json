@@ -16,5 +16,9 @@
     "swiper": "^11.1.14",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8"
   }
 }
