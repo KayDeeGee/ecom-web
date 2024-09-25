@@ -2,5 +2,10 @@
     "plugins": [
         "prettier-plugin-tailwindcss"
     ],
-    "tabWidth": 4
+    "tabWidth": 4,
+    "htmlWhitespaceSensitivity": "strict",  
+    "trailingComma": "none",         
+    "singleAttributePerLine": false, 
+    "bracketSameLine": true   
+ 
 }

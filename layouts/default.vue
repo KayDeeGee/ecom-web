@@ -4,9 +4,13 @@
         <div class="col-span-10 col-start-2 flex flex-col gap-10">
             <slot />
         </div>
+        <Footer />
     </div>
 </template>
 
-<script></script>
+<script>
+import Navbar from "@/components/Navbar.vue";
+import Footer from "@/components/Footer.vue";
+</script>
 
 <style scoped></style>
