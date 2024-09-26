@@ -6,15 +6,15 @@
             <div class="col-span-4">K</div>
             <div
                 class="col-span-4 flex justify-center gap-8 text-xl font-medium">
-                <a href="#hero">
+                <NuxtLink to="/">
                     <h3>Home</h3>
-                </a>
-                <a href="#skills">
+                </NuxtLink>
+                <NuxtLink to="/shop">
                     <h3>Shop</h3>
-                </a>
-                <a href="#skills">
+                </NuxtLink>
+                <NuxtLink to="/">
                     <h3>My Account</h3>
-                </a>
+                </NuxtLink>
             </div>
             <div class="col-span-4 flex items-center gap-4">
                 <UInput
@@ -35,10 +35,14 @@
                             @click="q = ''" />
                     </template>
                 </UInput>
-
-                <UChip color="red" text="14" size="2xl">
-                    <UButton icon="bi:cart-fill" color="gray" />
-                </UChip>
+                <UPopover mode="hover">
+                    <UChip color="red" text="14" size="2xl">
+                        <UButton to="/cart" icon="bi:cart-fill" color="gray" />
+                    </UChip>
+                    <template #panel>
+                        <div class="p-4"> </div>
+                    </template>
+                </UPopover>
             </div>
         </div>
     </div>
