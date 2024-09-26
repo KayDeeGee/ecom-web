@@ -73,7 +73,7 @@ const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
 };
 
-const { data } = await useFetch("https://api.escuelajs.co/api/v1/products");
+// const { data } = await useFetch("https://api.escuelajs.co/api/v1/products");
 </script>
 
 <style scoped>

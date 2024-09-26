@@ -1,29 +1,30 @@
 <template>
     <div
-        class="col-span-12 grid grid-cols-12 items-center justify-between bg-white py-5"
-    >
-        <div class="justify-betwe col-span-10 col-start-2 flex justify-between">
-            <div class="col-span-1">K</div>
-            <div class="col-span-10 flex gap-8 text-xl font-medium">
+        class="col-span-12 grid grid-cols-12 items-center justify-between bg-white py-5">
+        <div
+            class="col-span-10 col-start-2 grid grid-cols-12 items-center justify-between">
+            <div class="col-span-4">K</div>
+            <div
+                class="col-span-4 flex justify-center gap-8 text-xl font-medium">
                 <a href="#hero">
-                    <h3>About Me</h3>
+                    <h3>Home</h3>
                 </a>
                 <a href="#skills">
-                    <h3>Skills</h3>
+                    <h3>Shop</h3>
                 </a>
-                <a href="#projects">
-                    <h3>Projects</h3>
+                <a href="#skills">
+                    <h3>My Account</h3>
                 </a>
             </div>
-            <div class="col-span-1">
+            <div class="col-span-4 flex items-center gap-4">
                 <UInput
                     v-model="q"
                     name="q"
+                    class="w-full"
                     placeholder="Search..."
                     icon="i-heroicons-magnifying-glass-20-solid"
                     autocomplete="off"
-                    :ui="{ icon: { trailing: { pointer: '' } } }"
-                >
+                    :ui="{ icon: { trailing: { pointer: '' } } }">
                     <template #trailing>
                         <UButton
                             v-show="q !== ''"
@@ -31,10 +32,13 @@
                             variant="link"
                             icon="i-heroicons-x-mark-20-solid"
                             :padded="false"
-                            @click="q = ''"
-                        />
+                            @click="q = ''" />
                     </template>
                 </UInput>
+
+                <UChip color="red" text="14" size="2xl">
+                    <UButton icon="bi:cart-fill" color="gray" />
+                </UChip>
             </div>
         </div>
     </div>

@@ -10,10 +10,9 @@
             :spaceBetween="18"
             :freeMode="true"
             :pagination="{
-                clickable: true,
+                clickable: true
             }"
-            :modules="modules"
-        >
+            :modules="modules">
             <swiper-slide v-for="data in data">
                 <NuxtImg :src="data.images[0]" alt="" class="" />
             </swiper-slide>
@@ -31,9 +30,9 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 
 const modules = [FreeMode, Pagination];
-const { data, status, error, refresh, clear } = await useFetch(
-    "https://api.escuelajs.co/api/v1/products?offset=4&limit=5",
-);
+const { data, status, error, refresh, clear } =
+    await useFetch();
+    // "https://api.escuelajs.co/api/v1/products?offset=4&limit=5",
 </script>
 
 <style scoped>
