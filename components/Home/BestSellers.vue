@@ -9,12 +9,26 @@
             :slidesPerView="'auto'"
             :spaceBetween="18"
             :freeMode="true"
-            :pagination="{
-                clickable: true
+            :autoplay="{
+                delay: 2500,
+                disableOnInteraction: false
             }"
             :modules="modules">
-            <swiper-slide v-for="data in data">
-                <NuxtImg :src="data.images[0]" alt="" class="" />
+            <swiper-slide
+                v-for="data in data"
+                class="relative"
+                :key="data.id"
+                @click="">
+                <NuxtLink :to="`/product/${data.id}`">
+                    <NuxtImg :src="data.images[0]" alt="" class="h-" />
+                    <div
+                        class="absolute bottom-0 z-10 w-full bg-black bg-opacity-40 p-5">
+                        <h2
+                            class="text-ellipsis text-lg font-medium text-white opacity-100"
+                            >{{ data.title }}</h2
+                        >
+                    </div>
+                </NuxtLink>
             </swiper-slide>
         </swiper>
     </section>
@@ -22,23 +36,23 @@
 
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { FreeMode, Pagination } from "swiper/modules";
+import { useSwiper } from "~/composables/useSwiper";
 
-import "swiper/css";
+const { modules } = useSwiper();
 
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-
-const modules = [FreeMode, Pagination];
-const { data, status, error, refresh, clear } =
-    await useFetch();
-    // "https://api.escuelajs.co/api/v1/products?offset=4&limit=5",
+const { data, status, error, refresh, clear } = await useFetch(
+    "https://api.escuelajs.co/api/v1/products?offset=4&limit=5"
+);
 </script>
 
 <style scoped>
+.swiper {
+    height: auto;
+}
+
 .swiper-slide img {
     display: block;
-    height: 512px;
+    height: 400px;
     width: auto;
     object-fit: cover;
 }
