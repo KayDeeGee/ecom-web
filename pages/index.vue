@@ -14,4 +14,12 @@ import NewArrivals from "@/components/Home/NewArrivals.vue";
 html {
     @apply bg-slate-100;
 }
+
+.mySwiper .swiper-slide {
+    opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+    opacity: 1;
+}
 </style>
