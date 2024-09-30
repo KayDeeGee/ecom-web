@@ -1,7 +1,14 @@
 <template>
-    <div v-if="data" class="grid grid-cols-8 gap-3">
+    <div v-if="categoryStore.loading" class="grid grid-cols-12 gap-3">
+        <USkeleton
+            class="col-span-12 h-full"
+            :ui="{ background: 'bg-gray-600' }" />
+    </div>
+    <div
+        v-else-if="categoryStore.categoryData"
+        class="grid flex-grow grid-cols-8 gap-3 overflow-auto">
         <NuxtLink
-            v-for="item in data"
+            v-for="item in categoryStore.categoryData"
             :key="item.id"
             :to="`/product/${item.id}`"
             class="col-span-2 flex h-full flex-col justify-between bg-slate-200">
@@ -11,21 +18,20 @@
                 class="h-auto w-full"
                 loading="lazy" />
             <div class="flex flex-col p-4">
-                <h3 class="m-0 truncate text-lg font-medium">
-                    {{ item.title }}
-                </h3>
-                <h4 class="">{{ item.category.name }}</h4>
-                <h4 class="">$ {{ item.price }}</h4>
+                <h3 class="m-0 truncate text-lg font-medium">{{
+                    item.title
+                }}</h3>
+                <h4>{{ item.category.name }}</h4>
+                <h4>$ {{ item.price }}</h4>
             </div>
         </NuxtLink>
-    </div>
-    <div v-else class="bg- grid grid-cols-8 gap-3">
-        <USkeleton class="h-4 w-[250px]" />
     </div>
 </template>
 
 <script setup>
-const { data } = await useLazyFetch("https://api.escuelajs.co/api/v1/products");
+import { useCategoryStore } from "~/stores/useCategoryStore";
+
+const categoryStore = useCategoryStore();
 </script>
 
 <style lang="scss" scoped></style>
