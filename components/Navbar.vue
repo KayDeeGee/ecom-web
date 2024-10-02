@@ -36,11 +36,45 @@
                     </template>
                 </UInput>
                 <UPopover mode="hover">
-                    <UChip color="red" text="14" size="2xl">
+                    <UChip color="red" :text="cart.length" size="2xl">
                         <UButton to="/cart" icon="bi:cart-fill" color="gray" />
                     </UChip>
                     <template #panel>
-                        <div class="p-4"> </div>
+                        <div class="flex flex-col gap-4 p-4">
+                            <div class="text-lg font-bold">Cart</div>
+                            <div
+                                v-for="product in cart.slice(0, 5)"
+                                class="flex gap-4">
+                                <div>
+                                    <NuxtImg
+                                        :src="product.images[0]"
+                                        alt=""
+                                        class="h-16 w-16" />
+                                </div>
+                                <div
+                                    class="w-[240px] text-ellipsis font-medium"
+                                    >{{ product.title }}</div
+                                >
+                                <div class="text-primary font-medium"
+                                    >${{ product.price }}</div
+                                >
+                            </div>
+                            <div
+                                v-if="cart.length > 5"
+                                class="font-medium text-gray-500">
+                                {{ cart.length - 5 }} more items in your cart
+                                ...
+                            </div>
+                            <div>
+                                <UButton
+                                    color="primary"
+                                    size="xl"
+                                    variant="solid"
+                                    class="w-full justify-center">
+                                    View my cart
+                                </UButton>
+                            </div>
+                        </div>
                     </template>
                 </UPopover>
             </div>
@@ -49,6 +83,13 @@
 </template>
 
 <script setup>
+import { useStorage } from "@vueuse/core";
+
+const cart = useStorage("cart", []); // default is an empty array if nothing exists in localStorage
+
+// Reading the cart value
+console.log(cart.value);
+
 const q = ref("");
 </script>
 
