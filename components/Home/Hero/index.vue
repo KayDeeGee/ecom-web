@@ -46,7 +46,7 @@
 
 <script setup>
 import HeroCard from "@/components/Home/Hero/HeroCard.vue";
-const { data, status, error, refresh, clear } = await useFetch(
+const { data, status, error, refresh, clear } = await useLazyFetch(
     "https://api.escuelajs.co/api/v1/products?offset=5&limit=10"
 );
 

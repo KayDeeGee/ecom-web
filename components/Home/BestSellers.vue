@@ -20,7 +20,12 @@
                 :key="data.id"
                 @click="">
                 <NuxtLink :to="`/product/${data.id}`">
-                    <NuxtImg :src="data.images[0]" alt="" class="h-" />
+                    <NuxtImg
+                        :src="data.images[0]"
+                        alt=""
+                        class="h-"
+                        loading="lazy"
+                        format="webp" />
                     <div
                         class="absolute bottom-0 z-10 w-full bg-black bg-opacity-40 p-5">
                         <h2
@@ -40,7 +45,7 @@ import { useSwiper } from "~/composables/useSwiper";
 
 const { modules } = useSwiper();
 
-const { data, status, error, refresh, clear } = await useFetch(
+const { data, status, error, refresh, clear } = await useLazyFetch(
     "https://api.escuelajs.co/api/v1/products?offset=4&limit=5"
 );
 </script>

@@ -22,6 +22,7 @@
                             :src="item.images[0]"
                             alt=""
                             loading="lazy"
+                            format="webp"
                             class="col-span-8 h-[60vh] w-full object-cover object-center" />
                         <div class="col-span-4 flex flex-col gap-4">
                             <h1 class="text-6xl font-bold">{{ item.title }}</h1>
@@ -73,7 +74,7 @@ const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
 };
 
-const { data } = await useFetch("https://api.escuelajs.co/api/v1/products");
+const { data } = await useLazyFetch("https://api.escuelajs.co/api/v1/products");
 </script>
 
 <style scoped>
