@@ -5,5 +5,11 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxt/image', '@pinia/nuxt', '@vueuse/nuxt'],
   colorMode: {
     preference: 'light'
-  }
+  },
+  components: [
+    { path: '~/components/Modal'},
+    { path: '~/components/Home', pathPrefix: false },
+    { path: '~/components/Shop', pathPrefix: false },
+    '~/components'
+  ]
 })

@@ -82,6 +82,7 @@
                                 @click="addToCart()"
                                 >Add To Cart</UButton
                             >
+                            <AddToCart v-model="isModalOpen" />
                             <UButton
                                 color="primary"
                                 size="xl"
@@ -111,6 +112,7 @@ const { data: product } = await useFetch(
 
 const quantity = ref(1);
 const cart = useStorage("cart", []);
+const isModalOpen = ref(false);
 
 const updateQuantity = (action) => {
     if ((quantity.value || 0) + action < 1) return;
@@ -130,9 +132,13 @@ const addToCart = () => {
     if (existingProductIndex !== -1) {
         // If product exists, increase the quantity
         cart.value[existingProductIndex].quantity += quantity.value;
+        isModalOpen.value = true;
+        return;
     } else {
         // If product does not exist, add new product with quantity
         cart.value.push({ ...product.value, quantity: quantity.value });
+        isModalOpen.value = true;
+        return;
     }
 };
 </script>
