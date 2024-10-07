@@ -1,7 +1,8 @@
 <template>
     <div class="relative h-full w-full bg-slate-400">
         <NuxtImg
-            :src="imgUrl"
+            v-if="imgUrl"
+            :src="imgUrl || ''"
             alt=""
             class="w-full object-cover"
             :style="`height: ${height}`"

@@ -19,7 +19,7 @@
                 <swiper-slide v-for="(item, index) in data" :key="index">
                     <div class="grid grid-cols-12 gap-4">
                         <NuxtImg
-                            :src="item.images[0]"
+                            :src="item.images?.[0]"
                             alt=""
                             loading="lazy"
                             format="webp"
@@ -46,7 +46,7 @@
                 class="mySwiper h-32">
                 <swiper-slide v-for="(item, index) in data" :key="index">
                     <NuxtImg
-                        :src="item.images[0]"
+                        :src="item.images?.[0]"
                         alt=""
                         loading="lazy"
                         class="h-full w-full object-cover" />

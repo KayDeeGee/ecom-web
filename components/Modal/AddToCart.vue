@@ -1,11 +1,8 @@
 <template>
     <UModal v-model="model" title="Nuxt UI Modal">
-        <div class="progressBar"></div>
+        <div class="progress-bar"></div>
         <div class="p-4">
-            <p
-                >This modal will close automatically in 3 seconds or when the
-                button is clicked.</p
-            >
+            <p>Successfully added to cart!</p>
             <UButton @click="closeModal">Close Now</UButton>
         </div>
     </UModal>
@@ -26,7 +23,7 @@ const closeModal = () => {
 </script>
 
 <style scoped>
-.progressBar {
+.progress-bar {
     @apply bg-primary m-1 h-2 w-full rounded-full;
     animation: shrink 3s linear forwards;
 }

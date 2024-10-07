@@ -47,7 +47,7 @@
                                 class="flex gap-4">
                                 <div>
                                     <NuxtImg
-                                        :src="product.images[0]"
+                                        :src="product.images?.[0]"
                                         alt=""
                                         class="h-16 w-16" />
                                 </div>

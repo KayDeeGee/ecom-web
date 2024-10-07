@@ -21,7 +21,7 @@
                 @click="">
                 <NuxtLink :to="`/product/${data.id}`">
                     <NuxtImg
-                        :src="data.images[0]"
+                        :src="data.images?.[0]"
                         alt=""
                         class="h-"
                         loading="lazy"

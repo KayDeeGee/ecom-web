@@ -4,9 +4,7 @@
     <LazyNewArrivals />
 </template>
 
-<script setup>
-import Hero from "@/components/Home/Hero/index.vue";
-</script>
+<script setup></script>
 
 <style>
 html {

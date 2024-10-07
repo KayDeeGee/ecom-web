@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-12 gap-4">
+    <div class="grid h-full grid-cols-12 gap-4">
         <Sidebar class="col-span-2" />
         <Catalog class="col-span-10" />
     </div>

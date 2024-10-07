@@ -1,8 +1,8 @@
 <template>
-    <div class="grid grid-cols-12">
-        <div class="col-span-9 col-start-3">
-            <div class="flex gap-4">
-                <div class="">
+    <div class="grid h-full grid-cols-12">
+        <div class="col-span-9 col-start-3 h-full">
+            <div class="flex h-full gap-4">
+                <div class="w-full">
                     <swiper
                         :style="{
                             '--swiper-navigation-color': '#fff',
@@ -41,7 +41,8 @@
                     </swiper>
                 </div>
 
-                <div class="flex flex-col justify-between gap-4 bg-white p-5">
+                <div
+                    class="flex w-full flex-col justify-between gap-4 bg-white p-5">
                     <div class="flex flex-col">
                         <h1 class="mb-2 text-6xl font-bold">{{
                             product.title
