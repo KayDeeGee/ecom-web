@@ -11,5 +11,5 @@ export default defineNuxtConfig({
     { path: '~/components/Home', pathPrefix: false },
     { path: '~/components/Shop', pathPrefix: false },
     '~/components'
-  ]
+  ],
 })

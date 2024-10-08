@@ -1,12 +1,11 @@
 <template>
-    <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-9 grid gap-4">
+    <div class="grid h-full grid-cols-12 gap-4">
+        <div class="col-span-9 flex flex-col gap-4">
             <div class="bg-white p-4">
                 <div class="flex">
                     <h1 class="text-4xl font-bold">Cart</h1>
                 </div>
                 <div class="my-4 h-[1px] w-full bg-gray-300" />
-
                 <div class="grid grid-cols-12">
                     <div class="col-span-4 flex gap-4">
                         <UCheckbox class="self-center" v-model="selectAll" />
@@ -19,9 +18,11 @@
                 </div>
             </div>
             <div
+                v-if="cart.length"
                 v-for="item in cart"
                 class="grid grid-cols-12 bg-white p-4"
-                :to="`/product/${item.id}`">
+                :to="`/product/${item.id}`"
+                loading="lazy">
                 <div class="col-span-4 flex gap-4">
                     <UCheckbox
                         class="self-center"
@@ -74,16 +75,21 @@
                 <div class="col-span-1 flex items-center justify-center">
                     <UButton
                         color="red"
-                        variant="solid"
+                        variant="outline"
                         class="justify-center text-lg"
-                        @click="deleteModal(item.id)">
+                        @click="openDeleteModal(item.id)">
                         <UIcon name="ic:baseline-delete" class="h-5 w-5" />
                     </UButton>
                 </div>
             </div>
+            <div v-else class="h-full">
+                <USkeleton
+                    class="col-span-12 h-full"
+                    :ui="{ background: 'bg-gray-600' }" />
+            </div>
         </div>
         <div class="col-span-3">
-            <div class="flex flex-col bg-white p-4">
+            <div class="sticky top-[92px] flex flex-col bg-white p-4">
                 <h2 class="mb-4 text-2xl font-bold">Order Summary</h2>
                 <div class="flex justify-between">
                     <div>Subtotal ({{ selectedItems.length }} items)</div>
@@ -103,24 +109,32 @@
                     <div>Subtotal:</div>
                     <div class="text-primary"> ${{ subtotal }}</div>
                 </div>
-
                 <UButton label="Checkout" block class="mt-4" />
             </div>
         </div>
-        <!-- 
-        1. "table" headers - button(select all) Unit Price, Quantity, Subtotal, delete somewhere here i guess
-        2. "table" body - add icon for delete
-        3. order summary
-        -->
     </div>
 
-    <UModal v-model="isOpen">
-        <div class="p-4">
-            <div>
-                {{}}
+    <UModal v-model="isOpen" :ui="{ width: 'w-auto' }">
+        <div class="flex flex-col items-center justify-center p-4">
+            <p class="py-4 text-xl"
+                >Are you sure you want to delete this item?</p
+            >
+            <div class="mt-4 flex w-full gap-4">
+                <div class="w-full">
+                    <UButton
+                        @click="isOpen = false"
+                        size="xl"
+                        variant="outline"
+                        block>
+                        Close
+                    </UButton>
+                </div>
+                <div class="w-full">
+                    <UButton @click="deleteItem(itemToDelete)" size="xl" block>
+                        Delete
+                    </UButton>
+                </div>
             </div>
-            <p>Are you sure you want to delete this item?</p>
-            <UButton @click="isOpen = false">Close Now</UButton>
         </div>
     </UModal>
 </template>
@@ -132,19 +146,30 @@ const cart = useStorage("cart", []);
 
 const selectedItems = ref([]);
 const selectAll = ref(false);
+const itemToDelete = ref(null);
 const isOpen = ref(false);
-let subtotal = 0;
 
 const updateQuantity = (action, id) => {
     const index = cart.value.findIndex((item) => item.id === id);
 
-    if ((cart.value[index].quantity || 0) + action < 1) return;
+    if ((cart.value[index].quantity || 0) + action < 1) {
+        openDeleteModal(id);
+        return;
+    }
 
     cart.value[index].quantity = (cart.value[index].quantity || 0) + action;
 };
 
-const deleteModal = (id) => {
+const openDeleteModal = (id) => {
     isOpen.value = true;
+    itemToDelete.value = id;
+};
+
+const deleteItem = (id) => {
+    const index = cart.value.findIndex((item) => item.id === id);
+    cart.value.splice(index, 1);
+    isOpen.value = false;
+    return;
 };
 
 watch(selectAll, (newSelectAll) => {
@@ -155,16 +180,10 @@ watch(selectAll, (newSelectAll) => {
     }
 });
 
-watch(selectedItems, (newSelectedItems) => {
-    console.log(selectedItems.value);
-    subtotal = 0;
-    for (let x = 0; x < newSelectedItems.length; x++) {
-        const index = cart.value.findIndex(
-            (item) => item.id === newSelectedItems[x]
-        );
-        subtotal +=
-            (cart.value[index].price || 0) * (cart.value[index].quantity || 0);
-    }
+const subtotal = computed(() => {
+    return cart.value
+        .filter((item) => selectedItems.value.includes(item.id)) // Only selected items
+        .reduce((acc, item) => acc + item.price * item.quantity, 0);
 });
 </script>
 

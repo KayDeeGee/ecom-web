@@ -29,7 +29,7 @@
                     <div
                         class="absolute bottom-0 z-10 w-full bg-black bg-opacity-40 p-5">
                         <h2
-                            class="text-ellipsis text-lg font-medium text-white opacity-100"
+                            class="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-medium text-white opacity-100"
                             >{{ data.title }}</h2
                         >
                     </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="grid h-full grid-cols-12">
-        <div class="col-span-9 col-start-3 h-full">
-            <div class="flex h-full gap-4">
+        <div class="col-span-9 col-start-3 flex items-center">
+            <div class="flex gap-4">
                 <div class="w-full">
                     <swiper
                         :style="{

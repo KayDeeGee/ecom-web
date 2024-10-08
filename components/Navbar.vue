@@ -36,9 +36,15 @@
                     </template>
                 </UInput>
                 <UPopover mode="hover">
-                    <UChip color="red" :text="cart.length" size="2xl">
-                        <UButton to="/cart" icon="bi:cart-fill" color="gray" />
-                    </UChip>
+                    <ClientOnly>
+                        <UChip color="red" :text="cart.length" size="2xl">
+                            <UButton
+                                to="/cart"
+                                icon="bi:cart-fill"
+                                color="gray" />
+                        </UChip>
+                    </ClientOnly>
+
                     <template #panel>
                         <div class="flex flex-col gap-4 p-4">
                             <div class="text-lg font-bold">Cart</div>
