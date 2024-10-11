@@ -17,8 +17,13 @@
                     <div class="col-span-1 text-center"> Actions </div>
                 </div>
             </div>
+            <div v-if="loading" class="h-full">
+                <USkeleton
+                    class="col-span-12 h-full"
+                    :ui="{ background: 'bg-gray-600' }" />
+            </div>
             <div
-                v-if="cart.length"
+                v-else-if="cart.length"
                 v-for="item in cart"
                 class="grid grid-cols-12 bg-white p-4"
                 :to="`/product/${item.id}`"
@@ -82,10 +87,13 @@
                     </UButton>
                 </div>
             </div>
-            <div v-else class="h-full">
-                <USkeleton
-                    class="col-span-12 h-full"
-                    :ui="{ background: 'bg-gray-600' }" />
+            <div v-else class="bg-white p-4 text-center text-2xl font-bold">
+                <div>No items in cart</div>
+                <UButton
+                    label="Shop Now!"
+                    size="xl"
+                    class="mb-1 mt-4"
+                    :to="`/shop`" />
             </div>
         </div>
         <div class="col-span-3">
@@ -109,7 +117,20 @@
                     <div>Subtotal:</div>
                     <div class="text-primary"> ${{ subtotal }}</div>
                 </div>
-                <UButton label="Checkout" block class="mt-4" />
+                <UPopover mode="hover">
+                    <UButton
+                        :disabled="!selectedItems.length"
+                        label="Checkout"
+                        size="xl"
+                        block
+                        class="mt-4"
+                        :to="`/checkout`" />
+                    <template #panel v-if="!selectedItems.length">
+                        <div class="p-4">
+                            Please select an item to checkout.
+                        </div>
+                    </template>
+                </UPopover>
             </div>
         </div>
     </div>
@@ -141,13 +162,28 @@
 
 <script setup>
 import { useStorage } from "@vueuse/core";
+import { useSubtotal } from "~/composables/useSubtotal";
 
 const cart = useStorage("cart", []);
+let checkoutItems = ref([]);
 
 const selectedItems = ref([]);
 const selectAll = ref(false);
 const itemToDelete = ref(null);
 const isOpen = ref(false);
+const loading = ref(true);
+
+onBeforeMount(() => {
+    checkoutItems = useStorage("checkoutItems", [], sessionStorage);
+    checkoutItems.value = [];
+});
+
+onMounted(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+        loading.value = false; // Set loading to false once data is retrieved
+    }
+});
 
 const updateQuantity = (action, id) => {
     const index = cart.value.findIndex((item) => item.id === id);
@@ -172,6 +208,12 @@ const deleteItem = (id) => {
     return;
 };
 
+watch(selectedItems, (newSelectedItems) => {
+    checkoutItems.value = cart.value.filter((item) =>
+        newSelectedItems.includes(item.id)
+    );
+});
+
 watch(selectAll, (newSelectAll) => {
     if (newSelectAll) {
         selectedItems.value = cart.value.map((item) => item.id);
@@ -180,11 +222,7 @@ watch(selectAll, (newSelectAll) => {
     }
 });
 
-const subtotal = computed(() => {
-    return cart.value
-        .filter((item) => selectedItems.value.includes(item.id)) // Only selected items
-        .reduce((acc, item) => acc + item.price * item.quantity, 0);
-});
+const { subtotal } = useSubtotal(cart, selectedItems);
 </script>
 
 <style scoped></style>
