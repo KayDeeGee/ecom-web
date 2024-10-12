@@ -64,13 +64,25 @@
 </template>
 
 <script setup>
+import { useStorage } from "@vueuse/core";
 import { useCartStore } from "~/stores/useCartStore";
 
 const cartStore = useCartStore();
+const checkoutItems = useStorage("checkoutItems", [], sessionStorage);
+const cart = useStorage("cart", []);
+
+// onBeforeMount(() => {
+//     checkoutItems.value = useStorage("checkoutItems", [], sessionStorage);
+//     checkoutItems.value = [];
+// });
 
 watch(
     () => cartStore.selectedItems,
     (newSelectedItems) => {
+        checkoutItems.value = cartStore.cart.filter((item) =>
+            newSelectedItems.includes(item.id)
+        );
+
         if (newSelectedItems.length !== cartStore.cart.length) {
             cartStore.selectAll = false; // Uncheck "Select All" if not all items are selected
         } else {
