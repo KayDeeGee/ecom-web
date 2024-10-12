@@ -1,8 +1,5 @@
 <template>
-    <UModal
-        :modelValue="isOpen"
-        @update:modelValue="closeModal"
-        :ui="{ width: 'w-auto' }">
+    <UModal v-model="cartStore.isOpen" :ui="{ width: 'w-auto' }">
         <div class="flex flex-col items-center justify-center p-4">
             <p class="py-4 text-xl"
                 >Are you sure you want to delete this item?</p
@@ -10,7 +7,7 @@
             <div class="mt-4 flex w-full gap-4">
                 <div class="w-full">
                     <UButton
-                        @click="isOpen = false"
+                        @click="cartStore.isOpen = false"
                         size="xl"
                         variant="outline"
                         block>
@@ -18,7 +15,10 @@
                     </UButton>
                 </div>
                 <div class="w-full">
-                    <UButton @click="confirmDelete" size="xl" block>
+                    <UButton
+                        @click="cartStore.deleteItem(cartStore.itemToDelete)"
+                        size="xl"
+                        block>
                         Delete
                     </UButton>
                 </div>
@@ -32,5 +32,3 @@ import { useCartStore } from "~/stores/useCartStore";
 
 const cartStore = useCartStore();
 </script>
-
-<style lang="scss" scoped></style>

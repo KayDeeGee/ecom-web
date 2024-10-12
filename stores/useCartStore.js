@@ -5,7 +5,6 @@ export const useCartStore = defineStore("cart",() => {
     const selectAll = ref(false);
     const itemToDelete = ref(null);
     const isOpen = ref(false);
-    const loading = ref(true);
 
     const setSelectAll = (value) => {
         selectAll.value = value;
@@ -47,7 +46,6 @@ export const useCartStore = defineStore("cart",() => {
 
     return{
         cart,
-        loading,
         selectedItems,
         selectAll,
         itemToDelete,

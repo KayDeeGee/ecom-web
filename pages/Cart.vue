@@ -138,68 +138,32 @@
             </div> -->
         </div>
     </div>
-    <!-- <DeleteCartItemModal
-        :isOpen="isOpen"
-        :deleteItem="deleteItem"
-        :itemToDelete="itemToDelete"
-        @close="isOpen = false" /> -->
+    <DeleteCartItemModal />
 </template>
 
 <script setup>
-import { useStorage } from "@vueuse/core"; //
-import { useSubtotal } from "~/composables/useSubtotal";
+import { useStorage } from "@vueuse/core";
 import { useCartStore } from "~/stores/useCartStore";
 import DeleteCartItemModal from "~/components/Modal/DeleteCartItem.vue";
 
-const cart = useStorage("cart", []);
-
 const cartStore = useCartStore();
-cartStore.setCart(cart.value);
-
-let checkoutItems = ref([]);
-
-const selectedItems = ref([]);
-const selectAll = ref(false);
-const itemToDelete = ref(null);
-const isOpen = ref(false);
+const cart = useStorage("cart", []);
+const checkoutItems = ref([]);
 const loading = ref(true);
 
+cartStore.setCart(cart.value);
+
 onBeforeMount(() => {
-    checkoutItems = useStorage("checkoutItems", [], sessionStorage);
+    checkoutItems.value = useStorage("checkoutItems", [], sessionStorage);
     checkoutItems.value = [];
 });
 
 onMounted(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
-        loading.value = false; // Set loading to false once data is retrieved
+        loading.value = false;
     }
 });
-
-// const updateQuantity = (action, id) => {
-//     const index = cart.value.findIndex((item) => item.id === id);
-
-//     if ((cart.value[index].quantity || 0) + action < 1) {
-//         openDeleteModal(id);
-//         return;
-//     }
-
-//     cart.value[index].quantity = (cart.value[index].quantity || 0) + action;
-// };
-
-// const openDeleteModal = (id) => {
-//     isOpen.value = true;
-//     itemToDelete.value = id;
-// };
-
-// const deleteItem = (id) => {
-//     const index = cart.value.findIndex((item) => item.id === id);
-//     cart.value.splice(index, 1);
-//     isOpen.value = false;
-//     return;
-// };
-
-// const { subtotal } = useSubtotal(cart, selectedItems);
 </script>
 
 <style scoped></style>

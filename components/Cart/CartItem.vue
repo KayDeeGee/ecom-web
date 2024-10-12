@@ -56,7 +56,7 @@
                 color="red"
                 variant="outline"
                 class="justify-center text-lg"
-                @click="openDeleteModal(item.id)">
+                @click="cartStore.openDeleteModal(item.id)">
                 <UIcon name="ic:baseline-delete" class="h-5 w-5" />
             </UButton>
         </div>
