@@ -1,7 +1,8 @@
 <template>
     <div class="grid h-full grid-cols-12 gap-4">
         <div class="col-span-9 flex flex-col gap-4">
-            <div class="bg-white p-4">
+            <CartHeader />
+            <!-- <div class="bg-white p-4">
                 <div class="flex">
                     <h1 class="text-4xl font-bold">Cart</h1>
                 </div>
@@ -16,13 +17,15 @@
                     <div class="col-span-2 text-center"> Total Price </div>
                     <div class="col-span-1 text-center"> Actions </div>
                 </div>
-            </div>
+            </div> -->
             <div v-if="loading" class="h-full">
                 <USkeleton
                     class="col-span-12 h-full"
                     :ui="{ background: 'bg-gray-600' }" />
             </div>
-            <div
+            <CartItem v-else-if="cart.length" />
+
+            <!-- <div
                 v-else-if="cart.length"
                 v-for="item in cart"
                 class="grid grid-cols-12 bg-white p-4"
@@ -86,7 +89,7 @@
                         <UIcon name="ic:baseline-delete" class="h-5 w-5" />
                     </UButton>
                 </div>
-            </div>
+            </div> -->
             <div v-else class="bg-white p-4 text-center text-2xl font-bold">
                 <div>No items in cart</div>
                 <UButton
@@ -97,7 +100,8 @@
             </div>
         </div>
         <div class="col-span-3">
-            <div class="sticky top-[92px] flex flex-col bg-white p-4">
+            <CartSummary />
+            <!-- <div class="sticky top-[92px] flex flex-col bg-white p-4">
                 <h2 class="mb-4 text-2xl font-bold">Order Summary</h2>
                 <div class="flex justify-between">
                     <div>Subtotal ({{ selectedItems.length }} items)</div>
@@ -131,40 +135,27 @@
                         </div>
                     </template>
                 </UPopover>
-            </div>
+            </div> -->
         </div>
     </div>
-
-    <UModal v-model="isOpen" :ui="{ width: 'w-auto' }">
-        <div class="flex flex-col items-center justify-center p-4">
-            <p class="py-4 text-xl"
-                >Are you sure you want to delete this item?</p
-            >
-            <div class="mt-4 flex w-full gap-4">
-                <div class="w-full">
-                    <UButton
-                        @click="isOpen = false"
-                        size="xl"
-                        variant="outline"
-                        block>
-                        Close
-                    </UButton>
-                </div>
-                <div class="w-full">
-                    <UButton @click="deleteItem(itemToDelete)" size="xl" block>
-                        Delete
-                    </UButton>
-                </div>
-            </div>
-        </div>
-    </UModal>
+    <!-- <DeleteCartItemModal
+        :isOpen="isOpen"
+        :deleteItem="deleteItem"
+        :itemToDelete="itemToDelete"
+        @close="isOpen = false" /> -->
 </template>
 
 <script setup>
-import { useStorage } from "@vueuse/core";
+import { useStorage } from "@vueuse/core"; //
 import { useSubtotal } from "~/composables/useSubtotal";
+import { useCartStore } from "~/stores/useCartStore";
+import DeleteCartItemModal from "~/components/Modal/DeleteCartItem.vue";
 
 const cart = useStorage("cart", []);
+
+const cartStore = useCartStore();
+cartStore.setCart(cart.value);
+
 let checkoutItems = ref([]);
 
 const selectedItems = ref([]);
@@ -185,44 +176,30 @@ onMounted(() => {
     }
 });
 
-const updateQuantity = (action, id) => {
-    const index = cart.value.findIndex((item) => item.id === id);
+// const updateQuantity = (action, id) => {
+//     const index = cart.value.findIndex((item) => item.id === id);
 
-    if ((cart.value[index].quantity || 0) + action < 1) {
-        openDeleteModal(id);
-        return;
-    }
+//     if ((cart.value[index].quantity || 0) + action < 1) {
+//         openDeleteModal(id);
+//         return;
+//     }
 
-    cart.value[index].quantity = (cart.value[index].quantity || 0) + action;
-};
+//     cart.value[index].quantity = (cart.value[index].quantity || 0) + action;
+// };
 
-const openDeleteModal = (id) => {
-    isOpen.value = true;
-    itemToDelete.value = id;
-};
+// const openDeleteModal = (id) => {
+//     isOpen.value = true;
+//     itemToDelete.value = id;
+// };
 
-const deleteItem = (id) => {
-    const index = cart.value.findIndex((item) => item.id === id);
-    cart.value.splice(index, 1);
-    isOpen.value = false;
-    return;
-};
+// const deleteItem = (id) => {
+//     const index = cart.value.findIndex((item) => item.id === id);
+//     cart.value.splice(index, 1);
+//     isOpen.value = false;
+//     return;
+// };
 
-watch(selectedItems, (newSelectedItems) => {
-    checkoutItems.value = cart.value.filter((item) =>
-        newSelectedItems.includes(item.id)
-    );
-});
-
-watch(selectAll, (newSelectAll) => {
-    if (newSelectAll) {
-        selectedItems.value = cart.value.map((item) => item.id);
-    } else {
-        selectedItems.value = [];
-    }
-});
-
-const { subtotal } = useSubtotal(cart, selectedItems);
+// const { subtotal } = useSubtotal(cart, selectedItems);
 </script>
 
 <style scoped></style>

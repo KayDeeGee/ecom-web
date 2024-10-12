@@ -1,5 +1,8 @@
 <template>
-    <UModal v-model="isOpen" :ui="{ width: 'w-auto' }">
+    <UModal
+        :modelValue="isOpen"
+        @update:modelValue="closeModal"
+        :ui="{ width: 'w-auto' }">
         <div class="flex flex-col items-center justify-center p-4">
             <p class="py-4 text-xl"
                 >Are you sure you want to delete this item?</p
@@ -15,7 +18,7 @@
                     </UButton>
                 </div>
                 <div class="w-full">
-                    <UButton @click="deleteItem(itemToDelete)" size="xl" block>
+                    <UButton @click="confirmDelete" size="xl" block>
                         Delete
                     </UButton>
                 </div>
@@ -24,6 +27,10 @@
     </UModal>
 </template>
 
-<script setup></script>
+<script setup>
+import { useCartStore } from "~/stores/useCartStore";
+
+const cartStore = useCartStore();
+</script>
 
 <style lang="scss" scoped></style>
