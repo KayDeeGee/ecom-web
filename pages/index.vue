@@ -1,7 +1,7 @@
 <template>
     <Hero />
-    <LazyBestSellers />
-    <LazyNewArrivals />
+    <LazyBestSellers id="best-sellers" />
+    <LazyNewArrivals id="new-arrivals" />
 </template>
 
 <script setup></script>

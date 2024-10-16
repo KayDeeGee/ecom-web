@@ -7,8 +7,8 @@
         <div class="h-full w-full">
             <swiper
                 :style="{
-                    '--swiper-navigation-color': '#fff',
-                    '--swiper-pagination-color': '#fff'
+                    '--swiper-navigation-color': '#16a34a',
+                    '--swiper-pagination-color': '#16a34a'
                 }"
                 :loop="true"
                 :spaceBetween="10"
@@ -23,7 +23,7 @@
                             alt=""
                             loading="lazy"
                             format="webp"
-                            class="col-span-8 h-[60vh] w-full object-cover object-center" />
+                            class="col-span-7 h-[60vh] w-full object-cover object-center" />
                         <div class="col-span-4 flex flex-col gap-4">
                             <h1 class="text-6xl font-bold">{{ item.title }}</h1>
                             <h2 class="text-3xl font-bold"

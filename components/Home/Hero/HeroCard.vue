@@ -11,7 +11,7 @@
         <div class="absolute inset-0 z-10 bg-black opacity-30"></div>
         <!-- Dark overlay -->
         <h1
-            class="absolute inset-0 z-20 flex items-center justify-center font-bold text-white"
+            class="absolute inset-0 z-20 flex items-center justify-center p-4 font-bold text-white"
             :class="textSize">
             {{ title }}
         </h1>

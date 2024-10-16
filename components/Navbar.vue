@@ -1,11 +1,18 @@
 <template>
     <div
-        class="col-span-12 grid grid-cols-12 items-center justify-between bg-white py-5">
+        class="col-span-12 grid grid-cols-12 items-center justify-between bg-white">
         <div
             class="col-span-10 col-start-2 grid grid-cols-12 items-center justify-between">
-            <div class="col-span-4">K</div>
+            <div class="col-span-4 flex items-center gap-2">
+                <NuxtLink to="/">
+                    <NuxtImg src="img/logo.png" alt="Logo" class="h-12" />
+                </NuxtLink>
+                <NuxtLink to="/">
+                    <h1 class="font-poppins text-3xl font-bold">OH-Kei</h1>
+                </NuxtLink>
+            </div>
             <div
-                class="col-span-4 flex justify-center gap-8 text-xl font-medium">
+                class="col-span-4 flex justify-center gap-8 py-5 text-xl font-medium">
                 <NuxtLink to="/">
                     <h3>Home</h3>
                 </NuxtLink>
@@ -16,7 +23,7 @@
                     <h3>My Account</h3>
                 </NuxtLink>
             </div>
-            <div class="col-span-4 flex items-center gap-4">
+            <div class="col-span-4 flex items-center gap-4 py-5">
                 <UInput
                     v-model="q"
                     name="q"
