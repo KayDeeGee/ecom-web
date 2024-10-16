@@ -4,14 +4,16 @@
             :imgUrl="data[0].images[0]"
             height="716px"
             title="BEST SELLERS"
-            textSize="text-9xl" />
+            textSize="text-9xl"
+            redirect="#best-sellers" />
         <div class="grid grid-rows-2 gap-1">
             <div class="row-span-1">
                 <HeroCard
                     :imgUrl="data[1].images[0]"
                     height="356px"
                     title="NEW ARRIVALS"
-                    textSize="text-6xl" />
+                    textSize="text-6xl"
+                    redirect="#new-arrivals" />
             </div>
             <div class="row-span-1">
                 <div class="grid h-full flex-1 grid-cols-12 gap-1">
@@ -21,7 +23,8 @@
                                 :imgUrl="data[2].images[0]"
                                 height="356px"
                                 title="SHOP NOW!"
-                                textSize="text-3xl" />
+                                textSize="text-5xl"
+                                redirect="/shop" />
                         </div>
                         <!-- <div class="row-span-1 bg-white">
                             <HeroCard
@@ -35,8 +38,9 @@
                         <HeroCard
                             :imgUrl="data[4].images[0]"
                             height="356px"
-                            title="HOT ITEMS"
-                            textSize="text-5xl" />
+                            title="CATEGORIES"
+                            textSize="text-5xl"
+                            redirect="#categories" />
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@
 <style>
 html {
     @apply bg-slate-100;
+    scroll-behavior: smooth;
 }
 
 .mySwiper .swiper-slide {

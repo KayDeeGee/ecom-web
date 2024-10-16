@@ -1,5 +1,8 @@
 <template>
-    <div class="relative h-full w-full bg-slate-400">
+    <NuxtLink
+        to="#"
+        @click.prevent="scrollToSection"
+        class="relative h-full w-full bg-slate-400">
         <NuxtImg
             v-if="imgUrl"
             :src="imgUrl || ''"
@@ -15,7 +18,7 @@
             :class="textSize">
             {{ title }}
         </h1>
-    </div>
+    </NuxtLink>
 </template>
 
 <script setup>
@@ -23,8 +26,23 @@ const props = defineProps({
     imgUrl: String,
     height: String,
     title: String,
-    textSize: String
+    textSize: String,
+    redirect: String
 });
+
+const scrollToSection = () => {
+    const target = document.querySelector(props.redirect);
+    const navbarHeight = 100; // Navbar height to account for
+
+    if (target) {
+        const topPosition = target.getBoundingClientRect().top - navbarHeight;
+
+        window.scrollTo({
+            top: topPosition,
+            behavior: "smooth"
+        });
+    }
+};
 </script>
 
 <style scoped></style>
