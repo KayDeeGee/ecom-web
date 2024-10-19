@@ -1,8 +1,8 @@
 <template>
     <div
-        class="grid min-h-[99vh] w-full grid-cols-12 grid-rows-[auto_1fr_auto] gap-5">
+        class="grid min-h-screen w-full grid-cols-12 grid-rows-[auto_1fr_auto] gap-5">
         <Navbar class="sticky top-0 z-50 w-full" />
-        <div class="col-span-10 col-start-2 flex flex-col gap-10">
+        <div class="col-span-10 col-start-2 mb-10 flex flex-col gap-10">
             <slot />
         </div>
         <Footer />

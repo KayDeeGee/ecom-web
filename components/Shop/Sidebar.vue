@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full"
-        ><div class="h-full rounded bg-white p-5">
-            <h3>Categories</h3>
+    <div>
+        <div class="sticky top-[92px] rounded bg-white p-5 pb-8">
+            <h3 class="mb-5 text-2xl">Categories</h3>
             <div class="space-y-2">
                 <URadio
                     v-for="option of options"

@@ -24,15 +24,9 @@
                                 height="356px"
                                 title="SHOP NOW!"
                                 textSize="text-5xl"
-                                redirect="/shop" />
+                                redirect="/shop"
+                                linkType="shop" />
                         </div>
-                        <!-- <div class="row-span-1 bg-white">
-                            <HeroCard
-                                :imgUrl="data[3].images[0]"
-                                height="176px"
-                                title="BASICS"
-                                textSize="text-3xl" />
-                        </div> -->
                     </div>
                     <div class="col-span-6">
                         <HeroCard

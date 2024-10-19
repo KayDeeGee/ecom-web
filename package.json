@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@nuxt/image": "^1.8.0",
     "@nuxt/ui": "^2.18.5",
     "@pinia/nuxt": "^0.5.4",

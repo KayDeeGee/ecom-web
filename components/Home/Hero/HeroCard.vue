@@ -1,8 +1,8 @@
 <template>
     <NuxtLink
-        to="#"
+        :to="linkType == 'section' ? null : redirect"
         @click.prevent="scrollToSection"
-        class="relative h-full w-full bg-slate-400">
+        class="relative h-full w-full cursor-pointer bg-slate-400">
         <NuxtImg
             v-if="imgUrl"
             :src="imgUrl || ''"
@@ -22,20 +22,26 @@
 </template>
 
 <script setup>
+//
+
 const props = defineProps({
     imgUrl: String,
     height: String,
     title: String,
     textSize: String,
-    redirect: String
+    redirect: String,
+    linkType: {
+        type: String,
+        default: "section" // Default value
+    }
 });
 
 const scrollToSection = () => {
     const target = document.querySelector(props.redirect);
-    const navbarHeight = 100; // Navbar height to account for
+    const navbarHeight = 100; // Adjust for your navbar height
 
     if (target) {
-        const topPosition = target.getBoundingClientRect().top - navbarHeight;
+        const topPosition = target.offsetTop - navbarHeight;
 
         window.scrollTo({
             top: topPosition,

@@ -6,7 +6,7 @@
     </div>
     <div
         v-else-if="categoryStore.categoryData"
-        class="grid max-h-[756px] grid-cols-8 gap-3 overflow-y-auto">
+        class="grid grid-cols-8 gap-3 overflow-y-auto">
         <NuxtLink
             v-for="item in categoryStore.categoryData"
             :key="item.id"
