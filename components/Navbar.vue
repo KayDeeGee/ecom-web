@@ -5,7 +5,11 @@
             class="col-span-10 col-start-2 grid grid-cols-12 items-center justify-between">
             <div class="col-span-4 flex items-center gap-2">
                 <NuxtLink to="/">
-                    <NuxtImg src="img/logo.png" alt="Logo" class="h-12" />
+                    <NuxtImg
+                        src="img/logo.png"
+                        format="webp"
+                        alt="Logo"
+                        class="h-12 w-12" />
                 </NuxtLink>
                 <NuxtLink to="/">
                     <h1 class="font-poppins text-3xl font-bold">OH-Kei</h1>

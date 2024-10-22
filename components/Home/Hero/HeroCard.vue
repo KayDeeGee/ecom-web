@@ -1,15 +1,14 @@
 <template>
     <NuxtLink
+        v-if="props"
         :to="linkType == 'section' ? null : redirect"
         @click.prevent="scrollToSection"
         class="relative h-full w-full cursor-pointer bg-slate-400">
         <NuxtImg
-            v-if="imgUrl"
             :src="imgUrl || ''"
             alt=""
             class="w-full object-cover"
             :style="`height: ${height}`"
-            loading="lazy"
             format="webp" />
         <div class="absolute inset-0 z-10 bg-black opacity-30"></div>
         <!-- Dark overlay -->

@@ -38,8 +38,8 @@
                 </div>
             </div>
             <div class="col-span-3">
-                <div class="bg-white p-4"
-                    >Select Payment Method
+                <div class="bg-white p-4">
+                    <PaymentMethod />
                     <h2 class="mb-4 text-2xl font-bold">Order Summary</h2>
                     <div class="flex justify-between">
                         <div>Subtotal ({{ checkoutItems.length }} items)</div>
@@ -76,6 +76,7 @@
 
 <script setup>
 import { useStorage } from "@vueuse/core";
+import PaymentMethod from "~/components/Checkout/PaymentMethod.vue";
 
 const checkoutItems = ref([]);
 

@@ -4,7 +4,11 @@
         <div class="col-span-10 col-start-2 grid grid-cols-12 justify-between">
             <div class="col-span-4">
                 <div class="flex items-center justify-start gap-2">
-                    <NuxtImg src="img/logo.png" alt="Logo" class="h-12" />
+                    <NuxtImg
+                        src="img/logo.png"
+                        format="webp"
+                        alt="Logo"
+                        class="h-12 w-12" />
                     <h1 class="font-poppins text-3xl font-bold text-white"
                         >OH-Kei</h1
                     >
