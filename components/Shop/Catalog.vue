@@ -5,7 +5,9 @@
             :ui="{ background: 'bg-gray-600' }" />
     </div>
     <div
-        v-else-if="categoryStore.categoryData"
+        v-else-if="
+            categoryStore.categoryData && categoryStore.categoryData.length
+        "
         class="grid grid-cols-8 gap-3 overflow-y-auto">
         <NuxtLink
             v-for="item in categoryStore.categoryData"
@@ -26,12 +28,35 @@
             </div>
         </NuxtLink>
     </div>
+
+    <div v-else class="p-4 text-center text-2xl font-bold">
+        <div class="bg-white p-4">No items in {{ category }}</div>
+    </div>
 </template>
 
 <script setup>
 import { useCategoryStore } from "~/stores/useCategoryStore";
 
 const categoryStore = useCategoryStore();
+
+const category = computed(() => {
+    switch (categoryStore.selectedCategory) {
+        case "all":
+            return "All";
+        case "1":
+            return "Clothes";
+        case "2":
+            return "Electronics";
+        case "3":
+            return "Furniture";
+        case "4":
+            return "shoes";
+        case "5":
+            return "Miscellaneous";
+        default:
+            return "All";
+    }
+});
 </script>
 
 <style lang="scss" scoped></style>
