@@ -23,7 +23,7 @@
                 <NuxtLink to="/shop">
                     <h3>Shop</h3>
                 </NuxtLink>
-                <NuxtLink to="/">
+                <NuxtLink to="/account">
                     <h3>My Account</h3>
                 </NuxtLink>
             </div>
@@ -60,6 +60,7 @@
                         <div class="flex flex-col gap-4 p-4">
                             <div class="text-lg font-bold">Cart</div>
                             <div
+                                v-if="cart.length > 0"
                                 v-for="product in cart.slice(0, 5)"
                                 class="flex gap-4">
                                 <div>
@@ -76,6 +77,7 @@
                                     >${{ product.price }}</div
                                 >
                             </div>
+                            <div v-else> Your cart is empty. </div>
                             <div
                                 v-if="cart.length > 5"
                                 class="font-medium text-gray-500">
@@ -84,11 +86,22 @@
                             </div>
                             <div>
                                 <UButton
+                                    v-if="cart.length > 0"
+                                    to="/cart"
                                     color="primary"
                                     size="xl"
                                     variant="solid"
                                     class="w-full justify-center">
                                     View my cart
+                                </UButton>
+                                <UButton
+                                    v-else
+                                    to="/shop"
+                                    color="primary"
+                                    size="xl"
+                                    variant="solid"
+                                    class="w-full justify-center">
+                                    Go to Shop
                                 </UButton>
                             </div>
                         </div>

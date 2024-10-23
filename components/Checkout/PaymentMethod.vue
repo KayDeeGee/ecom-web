@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="text-lg">Select Payment Method</div>
+    <div class="mb-4">
+        <div class="mb-2 text-lg font-medium">Select Payment Method</div>
         <div class="flex flex-col gap-2">
             <div
                 v-for="option in options"

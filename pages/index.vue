@@ -4,7 +4,16 @@
     <NewArrivals id="new-arrivals" />
 </template>
 
-<script setup></script>
+<script setup>
+import { useStorage } from "@vueuse/core";
+
+const user = useStorage("user", {
+    name: "David Bowie",
+    email: "DaBowie@fakemail.com",
+    homeAddress: "B1 L1 fake street, fake city",
+    officeAddress: "B2 L2 fake street, fake city"
+});
+</script>
 
 <style>
 html {

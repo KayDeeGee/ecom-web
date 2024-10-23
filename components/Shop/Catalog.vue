@@ -29,7 +29,7 @@
         </NuxtLink>
     </div>
 
-    <div v-else class="p-4 text-center text-2xl font-bold">
+    <div v-else class="text-center text-2xl font-bold">
         <div class="bg-white p-4">No items in {{ category }}</div>
     </div>
 </template>
