@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     { path: '~/components/Modal'},
     { path: '~/components/Home', pathPrefix: false },
     { path: '~/components/Shop', pathPrefix: false },
+    { path: '~/components/Account', pathPrefix: false },
     '~/components'
   ],
   app: {

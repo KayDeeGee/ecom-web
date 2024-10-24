@@ -24,7 +24,7 @@
                     item.title
                 }}</h3>
                 <h4>{{ item.category.name }}</h4>
-                <h4>$ {{ item.price }}</h4>
+                <h4 class="text-primary font-bold">$ {{ item.price }}</h4>
             </div>
         </NuxtLink>
     </div>
