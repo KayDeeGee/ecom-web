@@ -12,8 +12,27 @@ const user = useStorage("user", {
     email: "DaBowie@fakemail.com",
     phone: "09123456789",
     imageUrl: "/img/default-pic.jpg",
-    homeAddress: "B1 L1 fake street, fake city",
-    officeAddress: "B2 L2 fake street, fake city"
+    addresses: [
+        {
+            name: "David Bowie",
+            address: "B1 L1 fake street, fake city",
+            phone: "09123456789",
+            postal: "9999"
+        },
+        {
+            name: "John Elton",
+            address:
+                "B1 L2 fake street, fake city, faker fake fake, another fake line",
+            phone: "09987654321",
+            postal: "9999"
+        },
+        {
+            name: "David Bowie",
+            address: "B1 L1 fake street, fake city",
+            phone: "09123456789",
+            postal: "9999"
+        }
+    ]
 });
 </script>
 

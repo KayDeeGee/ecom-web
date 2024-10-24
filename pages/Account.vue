@@ -13,6 +13,9 @@
                         <div class="">
                             {{ user?.email }}
                         </div>
+                        <div class="">
+                            {{ user?.phone }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -32,11 +35,17 @@
             </div>
         </div>
         <div class="col-span-9">
-            <div class="h-full bg-white p-4">
+            <div class="flex h-full flex-col bg-white p-4">
+                <div class="text-2xl font-bold text-green-700">
+                    {{ currentSection }}
+                </div>
+                <Divider />
                 <Profile v-if="currentSection === 'Profile'" />
                 <Orders v-if="currentSection === 'Orders'" />
                 <Addresses v-if="currentSection === 'Addresses'" />
+                <!-- <div class="flex flex-grow flex-col justify-center"> -->
                 <!-- <Payment v-if="currentSection === 'Payment'" /> -->
+                <!-- </div> -->
             </div>
         </div>
     </div>
