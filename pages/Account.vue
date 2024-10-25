@@ -3,20 +3,24 @@
         <div class="col-span-3 flex flex-col gap-4">
             <div class="bg-primary p-4 text-white">
                 <div class="flex gap-4">
-                    <NuxtImg
-                        :src="user?.imageUrl"
-                        format="webp"
-                        alt="Logo"
-                        class="h-24 w-24 rounded-full object-cover" />
-                    <div>
-                        <div class="text-2xl font-medium">{{ user?.name }}</div>
-                        <div class="">
-                            {{ user?.email }}
+                    <ClientOnly>
+                        <NuxtImg
+                            :src="user?.imageUrl"
+                            format="webp"
+                            alt="Logo"
+                            class="h-24 w-24 rounded-full object-cover" />
+                        <div>
+                            <div class="text-2xl font-medium">{{
+                                user?.name
+                            }}</div>
+                            <div class="">
+                                {{ user?.email }}
+                            </div>
+                            <div class="">
+                                {{ user?.phone }}
+                            </div>
                         </div>
-                        <div class="">
-                            {{ user?.phone }}
-                        </div>
-                    </div>
+                    </ClientOnly>
                 </div>
             </div>
             <div class="h-full bg-white p-4">
@@ -53,6 +57,12 @@
 
 <script setup>
 import { useStorage } from "@vueuse/core";
+
+onMounted(() => {
+    if (!user.value) {
+        navigateTo("/login");
+    }
+});
 
 const user = useStorage("user", {});
 

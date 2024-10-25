@@ -103,6 +103,7 @@ import { useStorage } from "@vueuse/core";
 import PaymentMethod from "~/components/Checkout/PaymentMethod.vue";
 
 const checkoutItems = ref([]);
+const orders = useStorage("orders", []);
 const isOpen = ref(false);
 
 onMounted(() => {
@@ -116,7 +117,9 @@ const subtotal = computed(() => {
     }, 0);
 });
 
-const orderConfirm = () => {};
+const orderConfirm = () => {
+    isOpen.value = false;
+};
 </script>
 
 <style lang="scss" scoped></style>

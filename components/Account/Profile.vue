@@ -58,10 +58,16 @@
 import { useStorage } from "@vueuse/core";
 
 const user = useStorage("user", {});
-const name = useState("userName", () => user.value.name);
-const email = useState("userEmail", () => user.value.email);
-const phone = useState("userPhone", () => user.value.phone);
+const name = useState("userName", () => "");
+const email = useState("userEmail", () => "");
+const phone = useState("userPhone", () => "");
 const isEdit = useState("isEdit", () => false);
+
+onMounted(() => {
+    name.value = user.value.name;
+    email.value = user.value.email;
+    phone.value = user.value.phone;
+});
 
 const saveChanges = () => {
     user.value.name = name.value;
