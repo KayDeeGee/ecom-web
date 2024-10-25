@@ -78,19 +78,19 @@
                             <UButton
                                 color="primary"
                                 size="xl"
-                                variant="soft"
+                                variant="solid"
                                 class="flex-1 justify-center text-lg"
                                 @click="addToCart()"
                                 >Add To Cart</UButton
                             >
                             <AddToCart v-model="isModalOpen" />
-                            <UButton
+                            <!-- <UButton
                                 color="primary"
                                 size="xl"
                                 variant="solid"
                                 class="flex-1 justify-center text-lg"
                                 >Buy Now</UButton
-                            >
+                            > -->
                         </div>
                     </div>
                 </div>

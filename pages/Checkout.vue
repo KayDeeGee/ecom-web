@@ -3,8 +3,38 @@
         <div v-if="checkoutItems" class="grid grid-cols-12 gap-4">
             <div class="col-span-6 col-start-3 flex flex-col gap-4">
                 <div class="flex flex-col bg-white p-4">
-                    <div>Checkout</div>
-                    <div>Shipping Address</div>
+                    <div class="text-2xl font-bold">Checkout</div>
+                    <Divider />
+                    <div>
+                        <div class="text-lg font-medium">Shipping Address:</div>
+                        <div
+                            class="scroll-custom mt-4 flex gap-4 overflow-x-auto">
+                            <div
+                                v-for="(address, index) in user.addresses"
+                                :key="index"
+                                @click="selectedAddress = index"
+                                class="h-24 w-80 flex-shrink-0 cursor-pointer rounded border p-2"
+                                :class="
+                                    selectedAddress == index
+                                        ? 'border-primary'
+                                        : ''
+                                ">
+                                <div class="flex">
+                                    <URadio
+                                        v-model="selectedAddress"
+                                        :value="index"
+                                        class="mr-2" />
+                                    <div
+                                        >{{ address.name }} |
+                                        {{ address.phone }}
+                                    </div>
+                                </div>
+                                <div>
+                                    {{ address.address }}, {{ address.postal }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div
                     v-for="(item, index) in checkoutItems"
@@ -65,7 +95,7 @@
                             size="xl"
                             block
                             class="mt-4"
-                            :to="`/checkout`" />
+                            @click="isOpen = true" />
                     </div>
                 </div>
             </div>
@@ -73,11 +103,9 @@
         <div v-else>Error checking out</div>
     </ClientOnly>
 
-    <UModal v-model="isOpen" :ui="{ width: 'w-auto' }">
+    <UModal v-model="isOpen">
         <div class="flex flex-col items-center justify-center p-4">
-            <p class="py-4 text-xl"
-                >Are you sure you want to delete this item?</p
-            >
+            <p class="py-4 text-xl">Confirm Order?</p>
             <div class="mt-4 flex w-full gap-4">
                 <div class="w-full">
                     <UButton
@@ -85,12 +113,12 @@
                         size="xl"
                         variant="outline"
                         block>
-                        Close
+                        No
                     </UButton>
                 </div>
                 <div class="w-full">
                     <UButton @click="orderConfirm" size="xl" block>
-                        Confirm
+                        Yes
                     </UButton>
                 </div>
             </div>
@@ -104,7 +132,10 @@ import PaymentMethod from "~/components/Checkout/PaymentMethod.vue";
 
 const checkoutItems = ref([]);
 const orders = useStorage("orders", []);
-const isOpen = ref(false);
+const user = useStorage("user", {});
+
+const isOpen = useState("orderModal", () => false);
+const selectedAddress = useState("selectedAddress", () => 0);
 
 onMounted(() => {
     const storedItems = useStorage("checkoutItems", [], sessionStorage);
@@ -118,8 +149,30 @@ const subtotal = computed(() => {
 });
 
 const orderConfirm = () => {
+    const newOrder = {
+        items: [...checkoutItems.value],
+        address: user.value.addresses[selectedAddress.value],
+        orderDate: new Date().toISOString()
+    };
+    console.log(user.value.addresses);
+    console.log(newOrder);
+    orders.value.push(newOrder);
+
     isOpen.value = false;
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.scroll-custom {
+    padding-bottom: 8px; /* Adds space between addresses and scrollbar */
+}
+.scroll-custom::-webkit-scrollbar {
+    height: 8px;
+}
+.scroll-custom::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+}
+.scroll-custom::-webkit-scrollbar-track {
+    background-color: #e5e7eb; /* Light gray */
+}
+</style>

@@ -2,6 +2,7 @@
     <Hero />
     <BestSellers id="best-sellers" />
     <NewArrivals id="new-arrivals" />
+    <ShopNow />
 </template>
 
 <script setup>
