@@ -5,7 +5,7 @@
             <div class="col-span-4">
                 <div class="flex items-center justify-start gap-2">
                     <NuxtImg
-                        src="img/logo.png"
+                        src="img/logo.PNG"
                         format="webp"
                         alt="Logo"
                         class="h-12 w-12" />

@@ -6,7 +6,7 @@
             <div class="col-span-4 flex items-center gap-2">
                 <NuxtLink to="/">
                     <NuxtImg
-                        src="img/logo.png"
+                        src="img/logo.PNG"
                         format="webp"
                         alt="Logo"
                         class="h-12 w-12" />
