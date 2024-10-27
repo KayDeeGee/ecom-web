@@ -154,12 +154,17 @@ const orderConfirm = () => {
         address: user.value.addresses[selectedAddress.value],
         orderDate: new Date().toISOString()
     };
-    console.log(user.value.addresses);
-    console.log(newOrder);
+
+    checkoutItems.value = [];
+
+    // console.log(user.value.addresses);
+    // console.log(newOrder);
     orders.value.push(newOrder);
 
     isOpen.value = false;
 };
+
+const pushOrder = () => {};
 </script>
 
 <style scoped>

@@ -17,6 +17,9 @@
 <script setup>
 const categoryStore = useCategoryStore();
 
+const route = useRoute();
+const categoryId = route.query.id || "all";
+
 const options = [
     {
         value: "all",
@@ -44,14 +47,14 @@ const options = [
     }
 ];
 
-const selected = ref("all");
+const selected = ref(categoryId);
 
 const handleCategoryChange = (value) => {
     categoryStore.setCategory(value);
     console.log(value, "wowowow");
 };
 
-handleCategoryChange("all");
+handleCategoryChange(selected.value);
 </script>
 
 <style lang="scss" scoped></style>
