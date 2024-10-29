@@ -12,7 +12,7 @@ export const useSearchStore = defineStore('search', () => {
         loading.value = true;
 
         try {
-            const data = await $fetch(`https://api.platzi.com/v1/products/?title=${searchQuery.value}`);
+            const data = await $fetch(`/api/products/?title=${searchQuery.value}`);
             searchResults.value = data.value || [];
         } catch (error) {
             console.error("Search error:", error);
