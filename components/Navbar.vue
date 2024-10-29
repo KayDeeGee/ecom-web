@@ -30,6 +30,7 @@
             <div class="col-span-4 flex items-center gap-4 py-5">
                 <UInput
                     v-model="q"
+                    @keyup.enter="search()"
                     name="q"
                     class="w-full"
                     placeholder="Search..."
@@ -114,13 +115,22 @@
 
 <script setup>
 import { useStorage } from "@vueuse/core";
+import { useSearchStore } from "~/stores/useSearchStore";
+import { useCategoryStore } from "~/stores/useCategoryStore";
 
-const cart = useStorage("cart", []); // default is an empty array if nothing exists in localStorage
+const router = useRouter();
+const cart = useStorage("cart", []);
+const searchStore = useSearchStore();
+const categoryStore = useCategoryStore();
+const q = ref(null);
 
-// Reading the cart value
-console.log(cart.value);
-
-const q = ref("");
+const search = () => {
+    console.log(q.value, "search query");
+    searchStore.setSearchQuery(q.value);
+    searchStore.searchProducts();
+    categoryStore.setCategory(null);
+    router.push({ path: "/shop" });
+};
 </script>
 
 <style lang="scss" scoped></style>

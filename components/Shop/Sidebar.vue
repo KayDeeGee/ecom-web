@@ -16,6 +16,7 @@
 
 <script setup>
 const categoryStore = useCategoryStore();
+const searchStore = useSearchStore();
 
 const route = useRoute();
 const categoryId = route.query.id || "all";
@@ -51,6 +52,7 @@ const selected = ref(categoryId);
 
 const handleCategoryChange = (value) => {
     categoryStore.setCategory(value);
+    searchStore.setSearchQuery(null);
     console.log(value, "wowowow");
 };
 
