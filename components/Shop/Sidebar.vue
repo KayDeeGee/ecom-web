@@ -49,11 +49,9 @@ const options = [
 ];
 
 const selected = ref(categoryId);
-
 const handleCategoryChange = (value) => {
     categoryStore.setCategory(value);
     searchStore.setSearchQuery(null);
-    console.log(value, "wowowow");
 };
 
 handleCategoryChange(selected.value);

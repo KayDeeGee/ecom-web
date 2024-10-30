@@ -38,16 +38,29 @@ import { useSearchStore } from "~/stores/useSearchStore";
 
 const categoryStore = useCategoryStore();
 const searchStore = useSearchStore();
+const searchResults = useState("searchResults", () => []);
 
-const loading = computed(() => {
-    return searchStore.loading || categoryStore.loading;
-});
+const fetchSearchResults = async () => {
+    if (!searchStore.searchQuery) {
+        searchResults.value = [];
+        return;
+    }
+
+    try {
+        searchResults.value = await $fetch(
+            `https://api.escuelajs.co/api/v1/products/?title=${searchStore.searchQuery}`
+        ).then(categoryStore.setCategory(null));
+    } catch (error) {
+        console.error("Error fetching search results:", error);
+        searchResults.value = [];
+    }
+};
+
+watch(() => searchStore.searchQuery, fetchSearchResults, { immediate: true });
 
 const displayData = computed(() => {
-    console.log(searchStore.searchResults, "display data");
-
     return searchStore.searchQuery
-        ? searchStore.searchResults
+        ? searchResults.value
         : categoryStore.categoryData;
 });
 
