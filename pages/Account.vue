@@ -24,32 +24,40 @@
                 </div>
             </div>
             <div class="h-full bg-white p-4">
-                <div
-                    v-for="section in sections"
-                    :key="section.name"
-                    @click="currentSection = section.name"
-                    class="cursor-pointer rounded p-2"
-                    :class="
-                        currentSection == section.name
-                            ? 'bg-primary text-white'
-                            : 'hover:bg-gray-100'
-                    ">
-                    {{ section.name }}
+                <div class="flex flex-col">
+                    <NuxtLink
+                        v-for="section in sections"
+                        :key="section.name"
+                        :to="`/account#${section.name.toLowerCase()}`"
+                        class="cursor-pointer rounded p-2"
+                        :class="
+                            currentSection == section.name.toLowerCase()
+                                ? 'bg-primary text-white'
+                                : 'hover:bg-gray-100'
+                        ">
+                        {{ section.name }}
+                    </NuxtLink>
                 </div>
             </div>
         </div>
         <div class="col-span-9">
             <div class="flex h-full flex-col bg-white p-4">
                 <div class="text-2xl font-bold text-green-700">
-                    {{ currentSection }}
+                    {{
+                        currentSection.charAt(0).toUpperCase() +
+                        currentSection.slice(1)
+                    }}
                 </div>
                 <Divider />
-                <Profile v-if="currentSection === 'Profile'" />
-                <Orders v-if="currentSection === 'Orders'" />
-                <Addresses v-if="currentSection === 'Addresses'" />
-                <!-- <div class="flex flex-grow flex-col justify-center"> -->
-                <!-- <Payment v-if="currentSection === 'Payment'" /> -->
-                <!-- </div> -->
+                <Profile
+                    id="account-profile"
+                    v-if="currentSection === 'profile'" />
+                <Orders
+                    id="account-orders"
+                    v-if="currentSection === 'orders'" />
+                <Addresses
+                    id="account-addresses"
+                    v-if="currentSection === 'addresses'" />
             </div>
         </div>
     </div>
@@ -57,20 +65,31 @@
 
 <script setup>
 import { useStorage } from "@vueuse/core";
+import Profile from "~/components/Account/Profile.vue";
+import Orders from "~/components/Account/Orders.vue";
+import Addresses from "~/components/Account/Addresses.vue";
 
-onMounted(() => {
-    if (!user.value) {
-        navigateTo("/login");
-    }
-});
-
+const route = useRoute();
 const user = useStorage("user", {});
-
+const currentSection = ref("profile");
 const sections = [
     { name: "Profile" },
     { name: "Orders" },
     { name: "Addresses" }
 ];
 
-const currentSection = useState("currentSection", () => "Profile");
+onMounted(() => {
+    setCurrentSection();
+});
+
+const setCurrentSection = () => {
+    currentSection.value = route.hash.replace("#", "") || "profile";
+};
+
+watch(
+    () => route.hash,
+    () => {
+        setCurrentSection();
+    }
+);
 </script>

@@ -130,12 +130,15 @@
 import { useStorage } from "@vueuse/core";
 import PaymentMethod from "~/components/Checkout/PaymentMethod.vue";
 
-const checkoutItems = ref([]);
+const router = useRouter();
+
 const orders = useStorage("orders", []);
 const user = useStorage("user", {});
+const cart = useStorage("cart", []);
 
 const isOpen = useState("orderModal", () => false);
 const selectedAddress = useState("selectedAddress", () => 0);
+const checkoutItems = ref([]);
 
 onMounted(() => {
     const storedItems = useStorage("checkoutItems", [], sessionStorage);
@@ -155,21 +158,28 @@ const orderConfirm = () => {
         orderDate: new Date().toISOString()
     };
 
-    checkoutItems.value = [];
+    removeCheckedOutItems();
 
-    // console.log(user.value.addresses);
-    // console.log(newOrder);
     orders.value.push(newOrder);
-
     isOpen.value = false;
+    router.push("/account#orders");
 };
 
-const pushOrder = () => {};
+const removeCheckedOutItems = () => {
+    cart.value = cart.value.filter(
+        (cartItem) =>
+            !checkoutItems.value.some(
+                (checkoutItem) => checkoutItem.id === cartItem.id
+            )
+    );
+
+    checkoutItems.value = [];
+};
 </script>
 
 <style scoped>
 .scroll-custom {
-    padding-bottom: 8px; /* Adds space between addresses and scrollbar */
+    padding-bottom: 8px;
 }
 .scroll-custom::-webkit-scrollbar {
     height: 8px;
@@ -178,6 +188,6 @@ const pushOrder = () => {};
     border-radius: 4px;
 }
 .scroll-custom::-webkit-scrollbar-track {
-    background-color: #e5e7eb; /* Light gray */
+    background-color: #e5e7eb;
 }
 </style>
